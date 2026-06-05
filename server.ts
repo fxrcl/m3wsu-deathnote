@@ -21,6 +21,8 @@ const TOKEN_TTL_SECONDS = 60 * 60 * 24 * 7;
 
 const memoryTokens = new Set<string>();
 
+let recordsCache: unknown | null = null;
+
 async function getRecords(): Promise<unknown> {
   if (redis) {
     return (await redis.get(RECORDS_KEY)) ?? [];
@@ -124,9 +126,19 @@ async function startServer() {
     res.json({ success: true });
   });
 
-  app.get("/api/records", async (_req, res) => {
+  app.get("/api/records", async (req, res) => {
     try {
-      res.json(await getRecords());
+      if (await isAuthorized(req)) {
+        const data = await getRecords();
+        recordsCache = data;
+        return res.json(data);
+      }
+      if (recordsCache !== null) {
+        return res.json(recordsCache);
+      }
+      const data = await getRecords();
+      recordsCache = data;
+      res.json(data);
     } catch (error) {
       res.status(500).json({ error: "Failed to read records" });
     }
@@ -138,6 +150,7 @@ async function startServer() {
     }
     try {
       await setRecords(req.body);
+      recordsCache = req.body;
       res.json({ success: true });
     } catch (error) {
       res.status(500).json({ error: "Failed to save records" });
