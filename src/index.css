@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --color-brand: #ffffff;
+  --color-accent: #3b82f6;
+  --color-bg: #0a0a0a;
+  --color-card: #141414;
+  --color-border: #262626;
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-stone-200 font-sans antialiased selection:bg-accent/30;
+  }
+}
+
+.glass-card {
+  @apply bg-card border border-border rounded-xl;
+}
+
+.input-field {
+  @apply w-full bg-bg border border-border rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-sm;
+}
+
+.btn-primary {
+  @apply bg-white text-black font-medium py-2.5 px-4 rounded-lg hover:bg-stone-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm;
+}
+
+.btn-secondary {
+  @apply bg-card border border-border text-stone-300 font-medium py-2.5 px-4 rounded-lg hover:bg-stone-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-bg;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full hover:bg-stone-700 transition-colors;
+}

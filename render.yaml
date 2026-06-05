@@ -1,0 +1,21 @@
+# Render Blueprint — описывает веб-сервис для автодеплоя.
+# При подключении репозитория Render подхватит эти настройки автоматически.
+services:
+  - type: web
+    name: m3wsu-death-note
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    # Пинговалка может дёргать /healthz, чтобы инстанс не засыпал.
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Секреты задаются вручную в дашборде Render (sync: false — не хранятся в репозитории).
+      - key: ADMIN_PASSKEY
+        sync: false
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
