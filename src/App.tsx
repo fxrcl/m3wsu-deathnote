@@ -231,7 +231,7 @@ export default function App() {
       <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-4xl font-bold tracking-tight text-white mb-2">M3WSU Death Note</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-white mb-2">m3wsu Death Note</h1>
             {isAdmin && (
               <span className="bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-full border border-emerald-500/20 font-medium tracking-wide flex items-center gap-1">
                 <Shield className="w-3.5 h-3.5" /> Админ
